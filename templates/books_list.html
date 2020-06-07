@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard Books Project - CS50</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/book_open.png') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/books_list.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/books_list-home.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- Google Fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Fondamento&display=swap" rel="stylesheet">
+
+
+  </head>
+  <body>
+
+
+    <header>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light bg-transparent">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}"><img class="img-fluid img-responsive" src="{{ url_for('static', filename='images/book_open.png') }}"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('logout') }}">Logout <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+<br><br><br>
+
+    <article class="container container-fluid">
+      <div class="clearfix row text-center">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" style="overflow-x:auto;">
+          <table>
+            <tr>
+              <th> ISBN Number </th>
+              <th> Book Title </th>
+              <th> Book Author </th>
+              <th> Published Year </th>
+              <th> Goodreads Average Rating </th>
+              <th> Goodreads Rating Counts </th>
+              <th> User Rating </th>
+            </tr>
+            <tr>
+              {%  if dashboards %}
+                <td> {{ dashboards.isbn }} </td>
+                <td> {{dashboards.title }} </td>
+                <td> {{ dashboards.author }} </td>
+                <td> {{ dashboards.year }} </td>
+              {% endif %}
+                <td> {{ values.goodreadsAvg }} </td>
+                <td> {{ values.goodreadsWRC }} </td>
+              {% for bkrvw in user_comment %}
+                <td> {{ bkrvw.rating }} </td>
+              {% endfor %}
+            </tr>
+          </table>
+        </div>
+      </div>
+    </article>
+
+
+  <br><br>
+
+  <section class="container container-fluid">
+    <div class="clearfix row text-center">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} text-center">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+<br>
+
+        <form class="" action="" method="POST">
+
+          {{ bookrv.hidden_tag() }}
+
+            <br>
+
+          <div class="form-group">
+            {{ bookrv.rating.label(class='col-form-label') }}
+            {{ bookrv.rating(class='form-control') }}
+          </div>
+          <div class="form-group">
+            {{ bookrv.comment.label(class='col-form-label') }}
+            {{ bookrv.comment(class='form-control') }}
+          </div>
+          <div class="form-group">
+            {{ bookrv.submit(class='form-control btn btn-primary') }}
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+
+<br><br>
+
+<article class="container container-fluid">
+  <div class="clearfix row text-center">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" style="overflow-x:auto;">
+      <table>
+        <tr>
+          <th> Rating </th>
+          <th> Comment </th>
+        </tr>
+        {% for bookrvw in user_comment %}
+        <tr>
+          <td> {{ bookrvw.rating }} </td>
+          <td> {{ bookrvw.comment }} </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</article>
+
+<br><br>
+
+
+
+
+            <script src="{{ url_for('static', filename='js/jquery-slim.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+
+
+      </body>
+    </html>

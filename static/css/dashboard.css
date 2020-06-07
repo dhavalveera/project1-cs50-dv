@@ -1,0 +1,22 @@
+* {
+  font-family: 'Fondamento', cursive;
+}
+
+
+body {
+  font-family: 'Fondamento', cursive;
+}
+
+
+table {
+  border-collapse: collapse;
+  border: 1px solid black;
+  margin: auto;
+}
+
+
+th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  color: rgb(0, 0, 0);
+}

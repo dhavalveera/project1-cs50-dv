@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard Books Project - CS50</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/book_open.png') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard-home.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- Google Fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Fondamento&display=swap" rel="stylesheet">
+
+
+  </head>
+  <body>
+
+
+    <header>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light bg-transparent">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}"><img class="img-fluid img-responsive" src="{{ url_for('static', filename='images/book_open.png') }}"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('logout') }}">Logout <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+
+      <br><br>
+
+    <section class="container container-fluid">
+      <form class="" action="" method="POST">
+
+        {{ bookForm.hidden_tag() }}
+
+        <div class="clearfix row text-center">
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              {{ bookForm.isbnNum.label(class='col-form-label') }} {{ bookForm.isbnNum(class='form-control') }}
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              {{ bookForm.title.label(class='col-form-label') }} {{ bookForm.title(class='form-control') }}
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-group">
+              {{ bookForm.author.label(class='col-form-label') }} {{ bookForm.author(class='form-control') }}
+            </div>
+          </div>
+        </div>
+        <div class="clearfix row text-center">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {{ bookForm.submit(class='form-control btn btn-primary') }}
+          </div>
+        </div>
+      </form>
+    </section>
+
+<br><br><br>
+
+  <article class="container container-fluid">
+    <div class="clearfix row text-center">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" style="overflow-x:auto;">
+        <table>
+          <tr>
+            <th> ISBN No. </th>
+            <th> Book Title </th>
+            <th> Author </th>
+            <th> Year </th>
+            <th> View Book </th>
+          </tr>
+          {% for book in bookdetail %}
+          <tr>
+            <td> {{ book.isbn }} </td>
+            <td> {{ book.title }} </td>
+            <td> {{ book.author }} </td>
+            <td> {{ book.year }} </td>
+            <td> <a href="{{ url_for('dashboards', searchbooks_isbn=book.isbn) }}">Click</a> </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </article>
+
+
+
+
+
+
+
+
+        <script src="{{ url_for('static', filename='js/jquery-slim.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+
+
+  </body>
+</html>

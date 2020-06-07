@@ -1,0 +1,12 @@
+@media (max-width: 768px) {
+  * {
+    font-family: 'Fondamento', cursive;
+  }
+
+  body {
+    font-family: 'Fondamento', cursive;
+    width: 100%;
+  }
+
+
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Books Project - CS50</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/book_open.png') }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index-home.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- Google Fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Fondamento&display=swap" rel="stylesheet">
+
+
+  </head>
+  <body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} text-center">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+      <br>
+
+    <div class="container container-fluid" id="form">
+      <div class="clearfix row text-center">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 my-auto" id="login">
+
+
+          <h2> Login </h2>
+            <hr style="border: 1px solid red; width: 8%;">
+            <br>
+
+          <form class="" action="" method="post">
+            {{ form_two.hidden_tag() }}
+
+            <div class="form-group">
+              {{ form_two.username_two.label(class='col-form-label') }} {{ form_two.username_two(class='form-control') }}
+            </div>
+            <div class="form-group">
+              {{ form_two.password.label(class='col-form-label') }} {{ form_two.password(class='form-control') }}
+            </div>
+            <div class="form-group">
+              {{ form_two.submit(class='form-control btn btn-primary') }}
+            </div>
+
+          </form>
+
+        </div>
+          <br>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 my-auto" id="signup">
+            <br><br>
+          <h2> Create New Account. </h2>
+            <hr style="border: 1px solid red; width:35%;">
+            <br>
+
+          <form class="" action="" method="POST">
+            {{ form_one.hidden_tag() }}
+
+            <div class="form-group">
+              {{ form_one.fname.label(class='col-form-label') }}
+
+                {% if form_one.fname.errors %}
+                  {{ form_one.fname(class='form-control is-invalid') }}
+                  <div class="invalid-feedback">
+                    {% for error in form_one.fname.errors %}
+                      <span>
+                        {{ error }}
+                      </span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ form_one.fname(class='form-control') }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form_one.email.label(class='col-form-label') }}
+
+                {% if form_one.email.errors %}
+                  {{ form_one.email(class='form-control is-invalid') }}
+                  <div class="invalid-feedback">
+                    {% for error in form_one.email.errors %}
+                      <span>
+                        {{ error }}
+                      </span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ form_one.email(class='form-control') }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form_one.username.label(class='col-form-label') }}
+
+                {% if form_one.username.errors %}
+                  {{ form_one.username(class='form-control is-invalid') }}
+                  <div class="invalid-feedback">
+                    {% for error in form_one.username.errors %}
+                      <span>
+                        {{ error }}
+                      </span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ form_one.username(class='form-control') }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form_one.password.label(class='col-form-label') }}
+
+                {% if form_one.password.errors %}
+                  {{ form_one.password(class='form-control is-invalid') }}
+                  <div class="invalid-feedback">
+                    {% for error in form_one.password.errors %}
+                      <span>
+                        {{ error }}
+                      </span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ form_one.password(class='form-control') }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form_one.submit(class='form-control btn btn-primary') }}
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <script src="{{ url_for('static', filename='js/jquery-slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+
+
+  </body>
+</html>
