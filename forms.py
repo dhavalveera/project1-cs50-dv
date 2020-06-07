@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 
-engine = create_engine(os.getenv("DATABASE"), encoding="utf8")
+engine = create_engine(os.getenv("DATABASE_URL"), encoding="utf8")
 db = scoped_session(sessionmaker(bind=engine))
 
 
