@@ -28,7 +28,7 @@ Session(app)
 
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def index():
 
     user_id = session.get('u_id')
