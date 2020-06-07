@@ -1,7 +1,7 @@
-requests
 Flask
+gunicorn
+requests
 flask_bcrypt
 sqlalchemy
 flask_wtf
 wtforms
-gunicorn
