@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 # Set up database
-engine = create_engine(os.getenv("DATABASE_URL"), encoding="utf8")
+engine = create_engine(os.getenv("DATABASE"), encoding="utf8")
 db = scoped_session(sessionmaker(bind=engine))
 
 app = Flask(__name__)
@@ -17,8 +17,8 @@ bcrypt = Bcrypt(app)
 app.config['SECRET_KEY'] = 'my123secret456key789'
 
 # Check for environment variable
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
+if not os.getenv("DATABASE"):
+    raise RuntimeError("DATABASE is not set")
 
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
