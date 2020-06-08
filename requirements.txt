@@ -8,3 +8,4 @@ wtforms
 Flask-Psycopg2
 Werkzeug
 Flask-Session
+email_validator
