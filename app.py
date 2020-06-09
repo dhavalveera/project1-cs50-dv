@@ -65,6 +65,7 @@ def index():
 
         if user and bcrypt.check_password_hash(user.password, password) is True:
             session['u_id'] = user.id
+            session['u_email'] = user.email
             return redirect(url_for('dashboard'))
         else:
             flash(f'You have entered incorrect Email ID or Password, please check your entered Email ID/Password.', 'warning')
@@ -86,6 +87,10 @@ def logout():
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
 
+    user_id = session.get('u_id')
+    if user_id is None:
+        return redirect(url_for('index'))
+
     bookForm = searchBook()
 
     if bookForm.validate_on_submit():
@@ -105,14 +110,21 @@ def dashboards(searchbooks_isbn):
     session['selectedISBN'] = searchbooks_isbn
     dashboards = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn" : searchbooks_isbn}).fetchone()
 
+
+    u_em = session.get('u_email')
+    rc_data = db.execute("SELECT * FROM bookreview WHERE email = :email and isbn = isbn", {"email" : u_em, "isbn" : searchbooks_isbn }).fetchone()
+
     bookrv = bookReview()
 
     if bookrv.validate_on_submit():
         rating = bookrv.rating.data
         comment = bookrv.comment.data
 
-        db.execute("INSERT INTO bookreview (isbn, rating, comment) VALUES (:isbn, :rating, :comment)", {"isbn" : searchbooks_isbn,"rating" : rating, "comment" : comment})
-        db.commit()
+        if rc_data is None:
+            db.execute("INSERT INTO bookreview (isbn, email, rating, comment) VALUES (:isbn, :email, :rating, :comment)", {"isbn" : searchbooks_isbn, "email" : u_em, "rating" : rating, "comment" : comment})
+            db.commit()
+        else:
+            raise Exception('You cannot submit multiple reviews for this Book.')
 
         flash(f'Your Review has successfully submitted.', 'success')
 
